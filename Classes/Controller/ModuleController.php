@@ -93,7 +93,13 @@ class ModuleController extends AbstractModuleController
             }
         }
 
-        if ($this->request->getArguments()) {
+        /**
+         * By default this action only shows entries which have been modified, we disable
+         * this in this line
+         * 
+         * TODO: highlight updated rows!
+         */
+        if ($this->request->hasArgument('action') && $this->request->getArgument('action') === 'search') {
             $redirects = $this->redirectRepository->search(
                 $this->request->getArgument('source'),
                 $this->request->getArgument('target'),
